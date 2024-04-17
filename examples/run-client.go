@@ -17,7 +17,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/digitalpoetry/redash-client-go/redash"
+	"github.com/AlmirKadric/redash-client-go/redash"
 	log "github.com/sirupsen/logrus"
 )
 

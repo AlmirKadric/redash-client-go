@@ -1,4 +1,4 @@
-module github.com/digitalpoetry/redash-client-go
+module github.com/AlmirKadric/redash-client-go
 
 go 1.17
 

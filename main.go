@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/digitalpoetry/redash-client-go/redash"
+	"github.com/AlmirKadric/redash-client-go/redash"
 )
 
 func main() {
