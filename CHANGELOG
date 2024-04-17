@@ -1,8 +1,20 @@
-Version 0.6.1 (2020-11-22)
+Version 0.6.1 (2020-11-22) [digitalpoetry]
 --------------------------
 Experimental methods for CRUD operations on queries, dashboard, visualizations, and widgets.
 
-Version 0.4.2 (2021-11-17)
+Version 0.6.0 (2022-09-23)
+--------------------------
+Add GetUsers pagination (#15)
+
+Version 0.5.0 (2022-09-21)
+--------------------------
+Update README badges (#13)
+Add query to doRequest (#7)
+Update copyright to 2020-2022 (#11)
+Bump Go Version to 1.17 (#12)
+Implement SSH Tunnel support (#14)
+
+Version 0.4.2 (2021-11-17) [digitalpoetry]
 --------------------------
 Add methods for getting queries
 
