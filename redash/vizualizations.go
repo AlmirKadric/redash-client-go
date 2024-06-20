@@ -29,16 +29,9 @@ type VisualizationOptions struct {
 	// 	"visible": true,
 	// 	"type": "data"
 	// },
-	Legend VisualizationLegendOptions `json:"legend,omitempty"`
-	// "series": {
-	// 	"stacking": null,
-	// 	"error_y": {
-	// 		"visible": true,
-	// 		"type": "data"
-	// 	}
-	// },
-	Series              map[string]interface{} `json:"series,omitempty"`
-	MissingValuesAsZero bool                   `json:"missingValuesAsZero,omitempty"`
+	Legend              VisualizationLegendOptions `json:"legend,omitempty"`
+	Series              Series                     `json:"series,omitempty"`
+	MissingValuesAsZero bool                       `json:"missingValuesAsZero,omitempty"`
 	// CHART TYPE - X-Axis
 	// scale
 	// name
@@ -65,6 +58,10 @@ type VisualizationOptions struct {
 	// TABLE TYPE
 	ItemsPerPage     int                          `json:"itemsPerPage,omitempty"`
 	Columns          []VisualizationColumnOptions `json:"columns,omitempty"`
+}
+
+type Series struct {
+	Stacking string `json:"stacking"`
 }
 
 type SeriesOptions struct {
