@@ -44,10 +44,10 @@ type VisualizationOptions struct {
 	// CHART TYPE - Colors
 	// CHART TYPE - Data Labels
 	ShowDataLabels bool   `json:"showDataLabels,omitempty"`
-	numberFormat   string `json:"numberFormat,omitempty"`
-	percentFormat  string `json:"percentFormat,omitempty"`
-	dateTimeFormat string `json:"dateTimeFormat,omitempty"`
-	textFormat     string `json:"textFormat,omitempty"`
+	NumberFormat   string `json:"numberFormat,omitempty"`
+	PercentFormat  string `json:"percentFormat,omitempty"`
+	DateTimeFormat string `json:"dateTimeFormat,omitempty"`
+	TextFormat     string `json:"textFormat,omitempty"`
 	// CHART TYPE - Unknown
 	// "direction": {
 	// 	"type": "counterclockwise"
