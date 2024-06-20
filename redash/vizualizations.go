@@ -21,14 +21,50 @@ type Visualization struct {
 
 // VisualizationOptions struct
 type VisualizationOptions struct {
-	XAxis            VisualizationAxisOptions   `json:"xAxis,omitempty"`
-	YAxis            []VisualizationAxisOptions `json:"yAxis,omitempty"`
-	Series           map[string]interface{}     `json:"series,omitempty"`
-	GlobalSeriesType string                     `json:"globalSeriesType,omitempty"`
-	SortX            bool                       `json:"sortX"`
-	SeriesOptions    map[string]SeriesOptions   `json:"seriesOptions,omitempty"`
-	ColumnMapping    map[string]string          `json:"columnMapping,omitempty"`
-	Legend           VisualizationLegendOptions `json:"legend,omitempty"`
+	// CHART TYPE
+	// CHART TYPE - General
+	GlobalSeriesType string            `json:"globalSeriesType,omitempty"`
+	ColumnMapping    map[string]string `json:"columnMapping,omitempty"`
+	// "error_y": {
+	// 	"visible": true,
+	// 	"type": "data"
+	// },
+	Legend VisualizationLegendOptions `json:"legend,omitempty"`
+	// "series": {
+	// 	"stacking": null,
+	// 	"error_y": {
+	// 		"visible": true,
+	// 		"type": "data"
+	// 	}
+	// },
+	Series              map[string]interface{} `json:"series,omitempty"`
+	MissingValuesAsZero bool                   `json:"missingValuesAsZero,omitempty"`
+	// CHART TYPE - X-Axis
+	// scale
+	// name
+	XAxis VisualizationAxisOptions `json:"xAxis,omitempty"`
+	SortX bool                     `json:"sortX,omitempty"`
+	// CHART TYPE - Y-Axis
+	YAxis []VisualizationAxisOptions `json:"yAxis,omitempty"`
+	// CHART TYPE - Series
+	SeriesOptions map[string]SeriesOptions `json:"seriesOptions,omitempty"`
+	// CHART TYPE - Colors
+	// CHART TYPE - Data Labels
+	ShowDataLabels bool   `json:"showDataLabels,omitempty"`
+	numberFormat   string `json:"numberFormat,omitempty"`
+	percentFormat  string `json:"percentFormat,omitempty"`
+	dateTimeFormat string `json:"dateTimeFormat,omitempty"`
+	textFormat     string `json:"textFormat,omitempty"`
+	// CHART TYPE - Unknown
+	// "direction": {
+	// 	"type": "counterclockwise"
+	// },
+	// "valuesOptions": {},
+	// "customCode": "// Available variables are x, ys, element, and Plotly\n// Type console.log(x, ys); for more info about x and ys\n// To plot your graph call Plotly.plot(element, ...)\n// Plotly examples and docs: https://plot.ly/javascript/",
+
+	// TABLE TYPE
+	ItemsPerPage     int                          `json:"itemsPerPage,omitempty"`
+	Columns          []VisualizationColumnOptions `json:"columns,omitempty"`
 }
 
 type SeriesOptions struct {
@@ -54,6 +90,47 @@ type VisualizationAxisOptions struct {
 // VisualizationLabelOptions struct
 type VisualizationLabelOptions struct {
 	Enabled bool `json:"enabled"`
+}
+
+// VisualizationColumnOptions struct
+type VisualizationColumnOptions struct {
+	// Shared
+	Visible            bool     `json:"visible"`
+	Name               string   `json:"name"`
+	Title              string   `json:"title"`
+	AlignContent       string   `json:"alignContent"`
+	AllowSearch        bool     `json:"allowSearch"`
+	Type               string   `json:"type"`
+	DisplayAs          string   `json:"displayAs"`
+
+	Order              int      `json:"order"`
+
+	// Text
+	AllowHTML          bool     `json:"allowHTML"`
+	HighlightLinks     bool     `json:"highlightLinks"`
+
+	// Number
+	NumberFormat       string   `json:"numberFormat"`
+
+	// Date/Time
+	DateTimeFormat     string   `json:"dateTimeFormat"`
+
+	// Boolean
+	BooleanValues      []string `json:"booleanValues"`
+
+	// Link
+	LinkUrlTemplate    string   `json:"linkUrlTemplate"`
+	LinkTextTemplate   string   `json:"linkTextTemplate"`
+	LinkOpenInNewTab   bool     `json:"linkOpenInNewTab"`
+	LinkTitleTemplate  string   `json:"linkTitleTemplate"`
+
+	// Image
+	ImageUrlTemplate   string   `json:"imageUrlTemplate"`
+	ImageWidth         string   `json:"imageWidth"`
+	ImageHeight        string   `json:"imageHeight"`
+	ImageTitleTemplate string   `json:"imageTitleTemplate"`
+
+	// JSON
 }
 
 type VisualizationCreatePayload struct {
