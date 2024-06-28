@@ -305,7 +305,7 @@ func (c *Client) UpdateQuery(id int, query *QueryUpdatePayload) (*Query, error) 
 
 	defer response.Body.Close()
 	newQuery := new(Query)
-	json.NewDecoder(response.Body).Decode(newQuery)
+	err = json.NewDecoder(response.Body).Decode(newQuery)
 	if err != nil {
 		return nil, err
 	}

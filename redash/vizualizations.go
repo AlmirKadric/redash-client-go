@@ -233,7 +233,7 @@ func (c *Client) UpdateVisualization(id int, visualizationUpdatePayload *Visuali
 
 	defer response.Body.Close()
 	newVisualization := new(VisualizationQuery)
-	json.NewDecoder(response.Body).Decode(newVisualization)
+	err = json.NewDecoder(response.Body).Decode(newVisualization)
 	if err != nil {
 		return nil, err
 	}
