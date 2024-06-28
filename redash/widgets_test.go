@@ -52,7 +52,7 @@ func TestCreateWidget(t *testing.T) {
 		Text:            "Widget text",
 		VisualizationID: 1,
 		Width:           1,
-		WidgetOptions: WidgetOptions{
+		Options: WidgetOptions{
 			IsHidden: false,
 			Position: WidgetPosition{
 				AutoHeight: false,
@@ -110,7 +110,7 @@ func TestUpdateWidget(t *testing.T) {
 	widget, err := c.UpdateWidget(112, &WidgetUpdatePayload{
 		Text:  "text",
 		Width: 1,
-		WidgetOptions: WidgetOptions{
+		Options: WidgetOptions{
 			IsHidden: false,
 			Position: WidgetPosition{
 				AutoHeight: false,

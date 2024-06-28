@@ -2,6 +2,7 @@ package redash
 
 import (
 	"github.com/jarcoal/httpmock"
+	"github.com/mitchellh/mapstructure"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"testing"
@@ -29,7 +30,8 @@ func TestGetVisualization(t *testing.T) {
 	assert.Equal("CHART", visualization.Type)
 	assert.Equal("", visualization.Description)
 
-	options := visualization.Options
+	options := &ChartOptions{}
+	mapstructure.Decode(visualization.Options, &options)
 	assert.NotNil(options)
 	assert.Equal("line", options.GlobalSeriesType)
 	assert.Equal(true, options.SortX)
@@ -60,7 +62,7 @@ func TestCreateVisualization(t *testing.T) {
 		Type:        "TABLE",
 		QueryId:     1,
 		Description: "Query results",
-		Options:     VisualizationOptions{},
+		Options:     TableOptions{},
 	})
 	assert.Nil(err)
 

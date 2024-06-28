@@ -8,21 +8,39 @@ import (
 	"time"
 )
 
-type Widget struct {
-	ID            int                    `json:"id"`
-	Width         int                    `json:"width"`
-	Options       WidgetOptions          `json:"options"`
-	DashboardID   int                    `json:"dashboard_id"`
-	Text          string                 `json:"text"`
-	UpdatedAt     time.Time              `json:"updated_at"`
-	CreatedAt     time.Time              `json:"created_at"`
-	Visualization DashboardVisualization `json:"visualization"`
+// Widget object structure for Dashboards
+type WidgetDashboard struct {
+	// Base Data
+	ID          int `json:"id"`
+	DashboardID int `json:"dashboard_id"`
+
+	//
+	Text  string `json:"text"`
+	Width int    `json:"width"`
+
+	// References
+	Visualization VisualizationDashboard `json:"visualization,omitempty"`
+
+	// Options
+	Options WidgetOptions `json:"options"`
+
+	// Timestamps
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type WidgetOptions struct {
-	IsHidden          bool                              `json:"is_hidden"`
-	Position          WidgetPosition                    `json:"position"`
+	IsHidden          bool                              `json:"isHidden"`
 	ParameterMappings map[string]WidgetParameterMapping `json:"parameterMappings"`
+	Position          WidgetPosition                    `json:"position"`
+}
+
+type WidgetParameterMapping struct {
+	Name  string `json:"name"`
+	Type  string `json:"type"`
+	MapTo string `json:"mapTo"`
+	Value string `json:"value"`
+	Title string `json:"title"`
 }
 
 type WidgetPosition struct {
@@ -37,30 +55,40 @@ type WidgetPosition struct {
 	Row        int  `json:"row"`
 }
 
-type WidgetParameterMapping struct {
-	Name  string `json:"name"`
-	Type  string `json:"type"`
-	MapTo string `json:"mapTo"`
-	Value string `json:"value"`
-	Title string `json:"title"`
-}
-
+// WidgetCreatePayload defines the schema for creating a Redash widget
 type WidgetCreatePayload struct {
-	DashboardID     int           `json:"dashboard_id"`
-	Text            string        `json:"text"`
-	VisualizationID int           `json:"visualization_id"`
-	Width           int           `json:"width"`
-	WidgetOptions   WidgetOptions `json:"options"`
+	// Base Data
+	DashboardID int `json:"dashboard_id"`
+
+	//
+	Text  string `json:"text"`
+	Width int    `json:"width"`
+
+	// References
+	VisualizationID int `json:"visualization_id"`
+
+	// Options
+	Options WidgetOptions `json:"options"`
 }
 
+// WidgetUpdatePayload defines the schema for updating a Redash widget
 type WidgetUpdatePayload struct {
-	Text          string        `json:"text"`
-	Width         int           `json:"width"`
-	WidgetOptions WidgetOptions `json:"options"`
+	// Base Data
+	DashboardID int `json:"dashboard_id"`
+
+	//
+	Text  string `json:"text"`
+	Width int    `json:"width"`
+
+	// References
+	VisualizationID int `json:"visualization_id"`
+
+	// Options
+	Options WidgetOptions `json:"options"`
 }
 
-// GetWidget returns a specific Widget
-func (c *Client) GetWidget(dashboardSlug string, widgetId int) (*Widget, error) {
+// GetWidget returns a specific Widget by its dashboard slug and widget ID
+func (c *Client) GetWidget(dashboardSlug string, widgetId int) (*WidgetDashboard, error) {
 	dashboard, err := c.GetDashboard(dashboardSlug)
 	if err != nil {
 		return nil, err
@@ -75,7 +103,8 @@ func (c *Client) GetWidget(dashboardSlug string, widgetId int) (*Widget, error) 
 	return nil, fmt.Errorf("widget %d not found in dashboard %s", widgetId, dashboardSlug)
 }
 
-func (c *Client) CreateWidget(widgetCreatePayload *WidgetCreatePayload) (*Widget, error) {
+// CreateWidget creates a new Redash widget
+func (c *Client) CreateWidget(widgetCreatePayload *WidgetCreatePayload) (*WidgetDashboard, error) {
 	path := "/api/widgets"
 
 	payload, err := json.Marshal(widgetCreatePayload)
@@ -90,7 +119,7 @@ func (c *Client) CreateWidget(widgetCreatePayload *WidgetCreatePayload) (*Widget
 	}
 
 	defer response.Body.Close()
-	newWidget := new(Widget)
+	newWidget := new(WidgetDashboard)
 	err = json.NewDecoder(response.Body).Decode(newWidget)
 	if err != nil {
 		return nil, err
@@ -99,7 +128,8 @@ func (c *Client) CreateWidget(widgetCreatePayload *WidgetCreatePayload) (*Widget
 	return newWidget, nil
 }
 
-func (c *Client) UpdateWidget(id int, widgetUpdatePayload *WidgetUpdatePayload) (*Widget, error) {
+// UpdateWidget updates an existing Redash widget
+func (c *Client) UpdateWidget(id int, widgetUpdatePayload *WidgetUpdatePayload) (*WidgetDashboard, error) {
 	path := "/api/widgets/" + strconv.Itoa(id)
 
 	payload, err := json.Marshal(widgetUpdatePayload)
@@ -114,7 +144,7 @@ func (c *Client) UpdateWidget(id int, widgetUpdatePayload *WidgetUpdatePayload) 
 	}
 
 	defer response.Body.Close()
-	newWidget := new(Widget)
+	newWidget := new(WidgetDashboard)
 	err = json.NewDecoder(response.Body).Decode(newWidget)
 	if err != nil {
 		return nil, err
@@ -123,6 +153,7 @@ func (c *Client) UpdateWidget(id int, widgetUpdatePayload *WidgetUpdatePayload) 
 	return newWidget, nil
 }
 
+// DeleteWidget deletes a Redash widget
 func (c *Client) DeleteWidget(id int) error {
 	path := "/api/widgets/" + strconv.Itoa(id)
 

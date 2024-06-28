@@ -7,64 +7,134 @@ import (
 	"time"
 )
 
-// QueriesList models the response from Redash's /api/queries endpoint
-type QueriesList struct {
+// QueryList object structure from Redash's /api/queries endpoint
+type QueryList struct {
 	Count    int `json:"count"`
 	Page     int `json:"page"`
 	PageSize int `json:"page_size"`
-	Results  []struct {
-		ID                int           `json:"id"`
-		IsArchived        bool          `json:"is_archived"`
-		CreatedAt         time.Time     `json:"created_at"`
-		RetrievedAt       time.Time     `json:"retrieved_at"`
-		UpdatedAt         time.Time     `json:"updated_at"`
-		Name              string        `json:"name"`
-		Description       string        `json:"description"`
-		Query             string        `json:"query"`
-		QueryHash         string        `json:"query_hash"`
-		Version           int           `json:"version"`
-		LastModifiedByID  int           `json:"last_modified_by_id"`
-		Tags              []string      `json:"tags"`
-		APIKey            string        `json:"api_key"`
-		DataSourceID      int           `json:"data_source_id"`
-		LatestQueryDataID int           `json:"latest_query_data_id"`
-		Schedule          QuerySchedule `json:"schedule"`
-		User              User          `json:"user"`
-		IsFavorite        bool          `json:"is_favorite"`
-		IsDraft           bool          `json:"is_draft"`
-		IsSafe            bool          `json:"is_safe"`
-		Runtime           float32       `json:"runtime"`
-		Options           QueryOptions  `json:"options"`
-	}
+	Results  []QueryListItem
 }
 
-// Query models the response from Redash's /api/queries endpoint
+// Query object structure for QueryList items
+type QueryListItem struct {
+	// Base Data
+	ID          int    `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description,omitempty"`
+
+	// Query
+	DataSourceID int    `json:"data_source_id"`
+	Query        string `json:"query"`
+	QueryHash    string `json:"query_hash"`
+
+	// Options
+	Options QueryOptions `json:"options"`
+
+	// State
+	IsDraft    bool `json:"is_draft"`
+	IsArchived bool `json:"is_archived"`
+	IsSafe     bool `json:"is_safe"`
+	Version    int  `json:"version"`
+
+	// User
+	User User `json:"user"`
+
+	// Timestamps
+	UpdatedAt time.Time `json:"updated_at"`
+	CreatedAt time.Time `json:"created_at"`
+
+	// Metadata
+	APIKey            string        `json:"api_key"`
+	Tags              []string      `json:"tags"`
+	LatestQueryDataID int           `json:"latest_query_data_id,omitempty"`
+	Schedule          QuerySchedule `json:"schedule"`
+
+	// List Item Specific
+	LastModifiedByID int       `json:"last_modified_by_id"`
+	IsFavorite       bool      `json:"is_favorite"`
+	RetrievedAt      time.Time `json:"retrieved_at"`
+	Runtime          float32   `json:"runtime"`
+}
+
+// Query object structure from Redash's /api/queries/<ID> endpoint
 type Query struct {
-	ID                int             `json:"id"`
-	Name              string          `json:"name"`
-	Description       string          `json:"description"`
-	Query             string          `json:"query"`
-	QueryHash         string          `json:"query_hash"`
-	Version           int             `json:"version"`
-	Schedule          QuerySchedule   `json:"schedule"`
-	APIKey            string          `json:"api_key"`
-	IsArchived        bool            `json:"is_archived"`
-	IsDraft           bool            `json:"is_draft"`
-	UpdatedAt         time.Time       `json:"updated_at"`
-	CreatedAt         time.Time       `json:"created_at"`
-	DataSourceID      int             `json:"data_source_id"`
-	LatestQueryDataID int             `json:"latest_query_data_id"`
-	Tags              []string        `json:"tags"`
-	IsSafe            bool            `json:"is_safe"`
-	User              User            `json:"user"`
-	LastModifiedBy    User            `json:"last_modified_by"`
-	IsFavorite        bool            `json:"is_favorite"`
-	CanEdit           bool            `json:"can_edit"`
-	Options           QueryOptions    `json:"options"`
-	Visualizations    []Visualization `json:"visualizations"`
+	// Base Data
+	ID          int    `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description,omitempty"`
+
+	// Query
+	DataSourceID int    `json:"data_source_id"`
+	Query        string `json:"query"`
+	QueryHash    string `json:"query_hash"`
+
+	// Options
+	Options QueryOptions `json:"options"`
+
+	// State
+	IsDraft    bool `json:"is_draft"`
+	IsArchived bool `json:"is_archived"`
+	IsSafe     bool `json:"is_safe"`
+	Version    int  `json:"version"`
+
+	// User
+	User User `json:"user"`
+
+	// Timestamps
+	UpdatedAt time.Time `json:"updated_at"`
+	CreatedAt time.Time `json:"created_at"`
+
+	// Metadata
+	APIKey            string        `json:"api_key"`
+	Tags              []string      `json:"tags"`
+	LatestQueryDataID int           `json:"latest_query_data_id,omitempty"`
+	Schedule          QuerySchedule `json:"schedule"`
+
+	// Query Specific
+	LastModifiedBy User                 `json:"last_modified_by"`
+	IsFavorite     bool                 `json:"is_favorite"`
+	CanEdit        bool                 `json:"can_edit"`
+	Visualizations []VisualizationQuery `json:"visualizations"`
 }
 
-// QuerySchedule struct
+// Query object structure for Dashboard Widget Visualizations
+type QueryDashboard struct {
+	// Base Data
+	ID          int    `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description,omitempty"`
+
+	// Query
+	DataSourceID int    `json:"data_source_id"`
+	Query        string `json:"query"`
+	QueryHash    string `json:"query_hash"`
+
+	// Options
+	Options QueryOptions `json:"options"`
+
+	// State
+	IsDraft    bool `json:"is_draft"`
+	IsArchived bool `json:"is_archived"`
+	IsSafe     bool `json:"is_safe"`
+	Version    int  `json:"version"`
+
+	// User
+	User User `json:"user"`
+
+	// Timestamps
+	UpdatedAt time.Time `json:"updated_at"`
+	CreatedAt time.Time `json:"created_at"`
+
+	// Metadata
+	APIKey            string        `json:"api_key"`
+	Tags              []string      `json:"tags"`
+	LatestQueryDataID int           `json:"latest_query_data_id,omitempty"`
+	Schedule          QuerySchedule `json:"schedule"`
+
+	// Dashboard Specific
+	LastModifiedBy User `json:"last_modified_by"`
+}
+
 type QuerySchedule struct {
 	Interval  int         `json:"interval"`
 	Time      string      `json:"time"`
@@ -72,45 +142,89 @@ type QuerySchedule struct {
 	Until     interface{} `json:"until"`
 }
 
-// QueryOptions struct
 type QueryOptions struct {
 	Parameters []QueryOptionsParameter `json:"parameters"`
 }
 
-// QueryOptionsParameter struct
 type QueryOptionsParameter struct {
-	Title       string        `json:"title"`
-	Name        string        `json:"name"`
-	Type        string        `json:"type"`
-	EnumOptions string        `json:"enum_options"`
-	Locals      []interface{} `json:"locals"`
-	Value       interface{}   `json:"value"`
+	Name  string `json:"name"`
+	Title string `json:"title"`
+
+	ParentQueryId int `json:"parentQueryId"`
+
+	Locals []interface{} `json:"locals"`
+
+	Type        string      `json:"type"`
+	Value       interface{} `json:"value"`
+	EnumOptions string      `json:"enumOptions,omitempty"`
+
+	Global bool `json:"global"`
 }
 
 // QueryCreatePayload defines the schema for creating a new Redash query
 type QueryCreatePayload struct {
-	Name         string       `json:"name,omitempty"`
-	Description  string       `json:"description,omitempty"`
-	Query        string       `json:"query,omitempty"`
-	DataSourceID int          `json:"data_source_id,omitempty"`
-	IsDraft      bool         `json:"is_draft,omitempty"`
-	Options      QueryOptions `json:"options,omitempty"`
-	Version      int          `json:"version,omitempty"`
+	// Base Data
+	Name        string `json:"name"`
+	Description string `json:"description,omitempty"`
+
+	// Query
+	DataSourceID int    `json:"data_source_id"`
+	Query        string `json:"query"`
+	QueryHash    string `json:"query_hash"`
+
+	// Options
+	Options QueryOptions `json:"options"`
+
+	// State
+	IsDraft    bool `json:"is_draft"`
+	IsArchived bool `json:"is_archived"`
+	IsSafe     bool `json:"is_safe"`
+	Version    int  `json:"version"`
+
+	// Metadata
+	APIKey            string        `json:"api_key"`
+	Tags              []string      `json:"tags"`
+	LatestQueryDataID int           `json:"latest_query_data_id,omitempty"`
+	Schedule          QuerySchedule `json:"schedule"`
+
+	// Query Specific
+	IsFavorite bool `json:"is_favorite"`
+	CanEdit    bool `json:"can_edit"`
 }
 
 // QueryUpdatePayload defines the schema for updating a Redash query
 type QueryUpdatePayload struct {
-	Name         string       `json:"name,omitempty"`
-	Description  string       `json:"description,omitempty"`
-	Query        string       `json:"query,omitempty"`
-	DataSourceID int          `json:"data_source_id,omitempty"`
-	IsDraft      bool         `json:"is_draft,omitempty"`
-	Options      QueryOptions `json:"options,omitempty"`
-	Version      int          `json:"version,omitempty"`
+	// Base Data
+	Name        string `json:"name"`
+	Description string `json:"description,omitempty"`
+
+	// Query
+	DataSourceID int    `json:"data_source_id"`
+	Query        string `json:"query"`
+	QueryHash    string `json:"query_hash"`
+
+	// Options
+	Options QueryOptions `json:"options"`
+
+	// State
+	IsDraft    bool `json:"is_draft"`
+	IsArchived bool `json:"is_archived"`
+	IsSafe     bool `json:"is_safe"`
+	Version    int  `json:"version"`
+
+	// Metadata
+	APIKey            string        `json:"api_key"`
+	Tags              []string      `json:"tags"`
+	LatestQueryDataID int           `json:"latest_query_data_id,omitempty"`
+	Schedule          QuerySchedule `json:"schedule"`
+
+	// Query Specific
+	IsFavorite bool `json:"is_favorite"`
+	CanEdit    bool `json:"can_edit"`
 }
 
-// GetQueries returns a paginated list of queries
-func (c *Client) GetQueries() (*QueriesList, error) {
+// GetQueries returns a list of Redash queries
+func (c *Client) GetQueries() (*QueryList, error) {
 	path := "/api/queries"
 
 	queryParams := url.Values{}
@@ -120,7 +234,7 @@ func (c *Client) GetQueries() (*QueriesList, error) {
 	}
 
 	defer response.Body.Close()
-	queries := new(QueriesList)
+	queries := new(QueryList)
 	err = json.NewDecoder(response.Body).Decode(queries)
 	if err != nil {
 		return nil, err
@@ -129,7 +243,7 @@ func (c *Client) GetQueries() (*QueriesList, error) {
 	return queries, nil
 }
 
-// GetQuery gets a specific query
+// GetQuery returns a specific Redash query by its ID
 func (c *Client) GetQuery(id int) (*Query, error) {
 	path := "/api/queries/" + strconv.Itoa(id)
 

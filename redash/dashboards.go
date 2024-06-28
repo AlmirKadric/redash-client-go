@@ -7,43 +7,132 @@ import (
 	"time"
 )
 
+// DashboardList object structure from Redash's /api/dashboards endpoint
+type DashboardList struct {
+	Count    int `json:"count"`
+	Page     int `json:"page"`
+	PageSize int `json:"page_size"`
+	Results  []DashboardListItem
+}
+
+// DashboardListItem object structure for DashboardList items
+type DashboardListItem struct {
+	// Base Data
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+	Slug string `json:"slug"`
+
+	// Options
+	Layout []interface{} `json:"layout"`
+
+	// State
+	IsFavorite              bool `json:"is_favorite"`
+	IsArchived              bool `json:"is_archived"`
+	IsDraft                 bool `json:"is_draft"`
+	DashboardFiltersEnabled bool `json:"dashboard_filters_enabled"`
+	Version                 int  `json:"version"`
+
+	// User
+	UserID int  `json:"user_id"`
+	User   User `json:"user"`
+
+	// Timestamps
+	UpdatedAt time.Time `json:"updated_at"`
+	CreatedAt time.Time `json:"created_at"`
+
+	// Metadata
+	Tags []string `json:"tags"`
+
+	// List Item Specific
+	// Widgets                 null      `json:"widgets"`
+}
+
+// Dashboard object structure from Redash's /api/dashboards/<SLUG> endpoint
 type Dashboard struct {
-	ID                      int           `json:"id"`
-	Slug                    string        `json:"slug"`
-	Name                    string        `json:"name"`
-	UserID                  int           `json:"user_id"`
-	User                    User          `json:"user"`
-	Layout                  []interface{} `json:"layout"`
-	DashboardFiltersEnabled bool          `json:"dashboard_filters_enabled"`
-	Widgets                 []Widget      `json:"widgets"`
-	IsArchived              bool          `json:"is_archived"`
-	IsDraft                 bool          `json:"is_draft"`
-	Tags                    []string      `json:"tags"`
-	UpdatedAt               time.Time     `json:"updated_at"`
-	CreatedAt               time.Time     `json:"created_at"`
-	Version                 int           `json:"version"`
-	IsFavorite              bool          `json:"is_favorite"`
-	CanEdit                 bool          `json:"can_edit"`
+	// Base Data
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+	Slug string `json:"slug"`
+
+	// Options
+	Layout []interface{} `json:"layout"`
+
+	// State
+	IsFavorite              bool `json:"is_favorite"`
+	IsArchived              bool `json:"is_archived"`
+	IsDraft                 bool `json:"is_draft"`
+	DashboardFiltersEnabled bool `json:"dashboard_filters_enabled"`
+	Version                 int  `json:"version"`
+
+	// User
+	UserID int  `json:"user_id"`
+	User   User `json:"user"`
+
+	// Timestamps
+	UpdatedAt time.Time `json:"updated_at"`
+	CreatedAt time.Time `json:"created_at"`
+
+	// Metadata
+	Tags []string `json:"tags"`
+
+	// Dashboard Specific
+	PublicUrl string            `json:"public_url"`
+	CanEdit   bool              `json:"can_edit"`
+	Widgets   []WidgetDashboard `json:"widgets"`
+	APIKey    string            `json:"api_key"`
 }
 
-type DashboardVisualization struct {
-	ID          int                  `json:"id"`
-	Type        string               `json:"type"`
-	Name        string               `json:"name"`
-	Description string               `json:"description"`
-	Options     VisualizationOptions `json:"options"`
-	Query       Query                `json:"query"`
-}
-
+// DashboardCreatePayload defines the schema for creating a Redash dashboards
 type DashboardCreatePayload struct {
+	// Base Data
 	Name string `json:"name"`
+	Slug string `json:"slug"`
+
+	// Options
+	// Layout                  []interface{}     `json:"layout"`
+
+	// State
+	IsFavorite              bool `json:"is_favorite"`
+	IsArchived              bool `json:"is_archived"`
+	IsDraft                 bool `json:"is_draft"`
+	DashboardFiltersEnabled bool `json:"dashboard_filters_enabled"`
+	Version                 int  `json:"version"`
+
+	// Metadata
+	Tags []string `json:"tags"`
+
+	// Dashboard Specific
+	PublicUrl string `json:"public_url"`
+	CanEdit   bool   `json:"can_edit"`
+	APIKey    string `json:"api_key"`
 }
 
+// DashboardUpdatePayload defines the schema for updating a Redash dashboards
 type DashboardUpdatePayload struct {
+	// Base Data
 	Name string `json:"name"`
+	Slug string `json:"slug"`
+
+	// Options
+	// Layout                  []interface{}     `json:"layout"`
+
+	// State
+	IsFavorite              bool `json:"is_favorite"`
+	IsArchived              bool `json:"is_archived"`
+	IsDraft                 bool `json:"is_draft"`
+	DashboardFiltersEnabled bool `json:"dashboard_filters_enabled"`
+	Version                 int  `json:"version"`
+
+	// Metadata
+	Tags []string `json:"tags"`
+
+	// Dashboard Specific
+	PublicUrl string `json:"public_url"`
+	CanEdit   bool   `json:"can_edit"`
+	APIKey    string `json:"api_key"`
 }
 
-// GetDashboard gets a specific dashboard
+// GetDashboard gets a specific dashboard by its slug
 func (c *Client) GetDashboard(slug string) (*Dashboard, error) {
 	path := "/api/dashboards/" + slug
 
@@ -63,6 +152,7 @@ func (c *Client) GetDashboard(slug string) (*Dashboard, error) {
 	return dashboard, nil
 }
 
+// CreateDashboard creates a new Redash dashboard
 func (c *Client) CreateDashboard(dashboard *DashboardCreatePayload) (*Dashboard, error) {
 	path := "/api/dashboards"
 
@@ -87,6 +177,7 @@ func (c *Client) CreateDashboard(dashboard *DashboardCreatePayload) (*Dashboard,
 	return newDashboard, nil
 }
 
+// UpdateDashboard updates an existing Redash dashboard
 func (c *Client) UpdateDashboard(id int, dashboard *DashboardUpdatePayload) (*Dashboard, error) {
 	path := "/api/dashboards/" + strconv.Itoa(id)
 
@@ -111,6 +202,7 @@ func (c *Client) UpdateDashboard(id int, dashboard *DashboardUpdatePayload) (*Da
 	return newDashboard, nil
 }
 
+// ArchiveDashboard archives an existing dashboard
 func (c *Client) ArchiveDashboard(slug string) error {
 	path := "/api/dashboards/" + slug
 
