@@ -20,7 +20,7 @@ type QueryListItem struct {
 	// Base Data
 	ID          int    `json:"id"`
 	Name        string `json:"name"`
-	Description string `json:"description,omitempty"`
+	Description string `json:"description"`
 
 	// Query
 	DataSourceID int    `json:"data_source_id"`
@@ -46,7 +46,7 @@ type QueryListItem struct {
 	// Metadata
 	APIKey            string        `json:"api_key"`
 	Tags              []string      `json:"tags"`
-	LatestQueryDataID int           `json:"latest_query_data_id,omitempty"`
+	LatestQueryDataID int           `json:"latest_query_data_id"`
 	Schedule          QuerySchedule `json:"schedule"`
 
 	// List Item Specific
@@ -61,7 +61,7 @@ type Query struct {
 	// Base Data
 	ID          int    `json:"id"`
 	Name        string `json:"name"`
-	Description string `json:"description,omitempty"`
+	Description string `json:"description"`
 
 	// Query
 	DataSourceID int    `json:"data_source_id"`
@@ -87,7 +87,7 @@ type Query struct {
 	// Metadata
 	APIKey            string        `json:"api_key"`
 	Tags              []string      `json:"tags"`
-	LatestQueryDataID int           `json:"latest_query_data_id,omitempty"`
+	LatestQueryDataID int           `json:"latest_query_data_id"`
 	Schedule          QuerySchedule `json:"schedule"`
 
 	// Query Specific
@@ -102,7 +102,7 @@ type QueryDashboard struct {
 	// Base Data
 	ID          int    `json:"id"`
 	Name        string `json:"name"`
-	Description string `json:"description,omitempty"`
+	Description string `json:"description"`
 
 	// Query
 	DataSourceID int    `json:"data_source_id"`
@@ -128,7 +128,7 @@ type QueryDashboard struct {
 	// Metadata
 	APIKey            string        `json:"api_key"`
 	Tags              []string      `json:"tags"`
-	LatestQueryDataID int           `json:"latest_query_data_id,omitempty"`
+	LatestQueryDataID int           `json:"latest_query_data_id"`
 	Schedule          QuerySchedule `json:"schedule"`
 
 	// Dashboard Specific
@@ -165,7 +165,7 @@ type QueryOptionsParameter struct {
 type QueryCreatePayload struct {
 	// Base Data
 	Name        string `json:"name"`
-	Description string `json:"description,omitempty"`
+	Description string `json:"description"`
 
 	// Query
 	DataSourceID int    `json:"data_source_id"`
@@ -184,7 +184,7 @@ type QueryCreatePayload struct {
 	// Metadata
 	APIKey            string        `json:"api_key"`
 	Tags              []string      `json:"tags"`
-	LatestQueryDataID int           `json:"latest_query_data_id,omitempty"`
+	LatestQueryDataID int           `json:"latest_query_data_id"`
 	Schedule          QuerySchedule `json:"schedule"`
 
 	// Query Specific
@@ -196,7 +196,7 @@ type QueryCreatePayload struct {
 type QueryUpdatePayload struct {
 	// Base Data
 	Name        string `json:"name"`
-	Description string `json:"description,omitempty"`
+	Description string `json:"description"`
 
 	// Query
 	DataSourceID int    `json:"data_source_id"`
@@ -215,7 +215,7 @@ type QueryUpdatePayload struct {
 	// Metadata
 	APIKey            string        `json:"api_key"`
 	Tags              []string      `json:"tags"`
-	LatestQueryDataID int           `json:"latest_query_data_id,omitempty"`
+	LatestQueryDataID int           `json:"latest_query_data_id"`
 	Schedule          QuerySchedule `json:"schedule"`
 
 	// Query Specific

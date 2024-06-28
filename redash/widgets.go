@@ -65,7 +65,7 @@ type WidgetCreatePayload struct {
 	Width int    `json:"width"`
 
 	// References
-	VisualizationID int `json:"visualization_id"`
+	VisualizationID int `json:"visualization_id,omitempty"`
 
 	// Options
 	Options WidgetOptions `json:"options"`
@@ -81,7 +81,7 @@ type WidgetUpdatePayload struct {
 	Width int    `json:"width"`
 
 	// References
-	VisualizationID int `json:"visualization_id"`
+	VisualizationID int `json:"visualization_id,omitempty"`
 
 	// Options
 	Options WidgetOptions `json:"options"`
