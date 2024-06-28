@@ -22,7 +22,7 @@ type Visualization struct {
 // VisualizationOptions struct
 type VisualizationOptions struct {
 	// CHART TYPE
-	// CHART TYPE - General
+	// General
 	GlobalSeriesType string            `json:"globalSeriesType,omitempty"`
 	ColumnMapping    map[string]string `json:"columnMapping,omitempty"`
 	// "error_y": {
@@ -32,23 +32,23 @@ type VisualizationOptions struct {
 	Legend              VisualizationLegendOptions `json:"legend,omitempty"`
 	Series              Series                     `json:"series,omitempty"`
 	MissingValuesAsZero bool                       `json:"missingValuesAsZero,omitempty"`
-	// CHART TYPE - X-Axis
-	// scale
-	// name
+	// X-Axis
+	// -scale
+	// -name
 	XAxis VisualizationAxisOptions `json:"xAxis,omitempty"`
 	SortX bool                     `json:"sortX,omitempty"`
-	// CHART TYPE - Y-Axis
+	// Y-Axis
 	YAxis []VisualizationAxisOptions `json:"yAxis,omitempty"`
-	// CHART TYPE - Series
+	// Series
 	SeriesOptions map[string]SeriesOptions `json:"seriesOptions,omitempty"`
-	// CHART TYPE - Colors
-	// CHART TYPE - Data Labels
+	// Colors
+	// Data Labels
 	ShowDataLabels bool   `json:"showDataLabels,omitempty"`
 	NumberFormat   string `json:"numberFormat,omitempty"`
 	PercentFormat  string `json:"percentFormat,omitempty"`
 	DateTimeFormat string `json:"dateTimeFormat,omitempty"`
 	TextFormat     string `json:"textFormat,omitempty"`
-	// CHART TYPE - Unknown
+	// Unknown
 	// "direction": {
 	// 	"type": "counterclockwise"
 	// },
