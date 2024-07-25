@@ -96,15 +96,9 @@ type DashboardCreatePayload struct {
 	IsArchived              bool `json:"is_archived"`
 	IsDraft                 bool `json:"is_draft"`
 	DashboardFiltersEnabled bool `json:"dashboard_filters_enabled"`
-	Version                 int  `json:"version"`
 
 	// Metadata
 	Tags []string `json:"tags"`
-
-	// Dashboard Specific
-	PublicUrl string `json:"public_url"`
-	CanEdit   bool   `json:"can_edit"`
-	APIKey    string `json:"api_key"`
 }
 
 // DashboardUpdatePayload defines the schema for updating a Redash dashboards
@@ -121,15 +115,9 @@ type DashboardUpdatePayload struct {
 	IsArchived              bool `json:"is_archived"`
 	IsDraft                 bool `json:"is_draft"`
 	DashboardFiltersEnabled bool `json:"dashboard_filters_enabled"`
-	Version                 int  `json:"version"`
 
 	// Metadata
 	Tags []string `json:"tags"`
-
-	// Dashboard Specific
-	PublicUrl string `json:"public_url"`
-	CanEdit   bool   `json:"can_edit"`
-	APIKey    string `json:"api_key"`
 }
 
 // GetDashboard gets a specific dashboard by its slug

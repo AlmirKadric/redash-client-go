@@ -65,7 +65,7 @@ type WidgetCreatePayload struct {
 	Width int    `json:"width"`
 
 	// References
-	VisualizationID int `json:"visualization_id,omitempty"`
+	VisualizationID *int `json:"visualization_id"`
 
 	// Options
 	Options WidgetOptions `json:"options"`
@@ -73,15 +73,12 @@ type WidgetCreatePayload struct {
 
 // WidgetUpdatePayload defines the schema for updating a Redash widget
 type WidgetUpdatePayload struct {
-	// Base Data
-	DashboardID int `json:"dashboard_id"`
-
 	//
 	Text  string `json:"text"`
 	Width int    `json:"width"`
 
 	// References
-	VisualizationID int `json:"visualization_id,omitempty"`
+	VisualizationID *int `json:"visualization_id"`
 
 	// Options
 	Options WidgetOptions `json:"options"`

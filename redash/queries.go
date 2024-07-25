@@ -178,18 +178,11 @@ type QueryCreatePayload struct {
 	// State
 	IsDraft    bool `json:"is_draft"`
 	IsArchived bool `json:"is_archived"`
-	IsSafe     bool `json:"is_safe"`
 	Version    int  `json:"version"`
 
 	// Metadata
-	APIKey            string        `json:"api_key"`
-	Tags              []string      `json:"tags"`
-	LatestQueryDataID int           `json:"latest_query_data_id"`
-	Schedule          QuerySchedule `json:"schedule"`
-
-	// Query Specific
-	IsFavorite bool `json:"is_favorite"`
-	CanEdit    bool `json:"can_edit"`
+	Tags              []string       `json:"tags"`
+	Schedule          *QuerySchedule `json:"schedule"`
 }
 
 // QueryUpdatePayload defines the schema for updating a Redash query
@@ -209,18 +202,11 @@ type QueryUpdatePayload struct {
 	// State
 	IsDraft    bool `json:"is_draft"`
 	IsArchived bool `json:"is_archived"`
-	IsSafe     bool `json:"is_safe"`
 	Version    int  `json:"version"`
 
 	// Metadata
-	APIKey            string        `json:"api_key"`
-	Tags              []string      `json:"tags"`
-	LatestQueryDataID int           `json:"latest_query_data_id"`
-	Schedule          QuerySchedule `json:"schedule"`
-
-	// Query Specific
-	IsFavorite bool `json:"is_favorite"`
-	CanEdit    bool `json:"can_edit"`
+	Tags              []string       `json:"tags"`
+	Schedule          *QuerySchedule `json:"schedule"`
 }
 
 // GetQueries returns a list of Redash queries
