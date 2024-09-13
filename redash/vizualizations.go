@@ -123,7 +123,7 @@ type ChartLegend struct {
 }
 
 type ChartSeries struct {
-	Stacking string      `json:"stacking"`
+	Stacking *string     `json:"stacking"`
 	ErrorY   ChartErrorY `json:"error_y"`
 }
 
