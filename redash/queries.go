@@ -181,8 +181,8 @@ type QueryCreatePayload struct {
 	Version    int  `json:"version"`
 
 	// Metadata
-	Tags              []string       `json:"tags"`
-	Schedule          *QuerySchedule `json:"schedule"`
+	Tags     []string       `json:"tags"`
+	Schedule *QuerySchedule `json:"schedule"`
 }
 
 // QueryUpdatePayload defines the schema for updating a Redash query
@@ -205,8 +205,8 @@ type QueryUpdatePayload struct {
 	Version    int  `json:"version"`
 
 	// Metadata
-	Tags              []string       `json:"tags"`
-	Schedule          *QuerySchedule `json:"schedule"`
+	Tags     []string       `json:"tags"`
+	Schedule *QuerySchedule `json:"schedule"`
 }
 
 // GetQueries returns a list of Redash queries

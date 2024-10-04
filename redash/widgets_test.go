@@ -47,10 +47,11 @@ func TestCreateWidget(t *testing.T) {
 	httpmock.RegisterResponder("POST", "https://com.acme/api/widgets",
 		httpmock.NewStringResponder(200, string(body)))
 
+	visualizationId := 1
 	widget, err := c.CreateWidget(&WidgetCreatePayload{
 		DashboardID:     5,
 		Text:            "Widget text",
-		VisualizationID: 1,
+		VisualizationID: &visualizationId,
 		Width:           1,
 		Options: WidgetOptions{
 			IsHidden: false,
